@@ -1,4 +1,4 @@
-const { Router } = reqire("express");
+const { Router } = require("express");
 const adminRouter = Router();
 
 adminRouter.post("/signup", function(req, res){
