@@ -9,10 +9,13 @@ const userRouter = Router();
     try{
     const {email, password, firstName, lastName } = req.body; //adding todo validation 
     //Todo: hash the password so plain text pw is not stored in the DB
-
+    const trimmedEmail = email?.trim();
+    const trimmedPassword = password?.trim();
+    const trimmedFirstName = firstName?.trim();
+    const trimmedLastName = lastName?.trim();
 
     //Basic validation
-    if (!email || !password || !firstName || !lastName){
+    if (!trimmedEmail || !trimmedPassword || !trimmedFirstName || !trimmedLastName){
       return res.status(400).json({
         msg:"all fields are required"
       })
@@ -35,15 +38,15 @@ const userRouter = Router();
 
   // create a new user
     const user = await userModel.create({
-      email: email,
+      email: trimmedEmail,
       password: hashedPassword,
-      firstName: firstName,
-      lastName: lastName
+      firstName: trimmedFirstName,
+      lastName: trimmedLastName
     })
 
     res.status(201).json({
       msg:"signup successfully",
-      userId: userModel._id
+      
     });
 
  } catch (error) {
